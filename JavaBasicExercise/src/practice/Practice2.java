@@ -20,12 +20,13 @@ public class Practice2 {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/exercise", "root", "");
 
 			stmt = conn.createStatement();
-			 // ©“®ƒRƒ~ƒbƒg‚ğƒIƒt‚Éİ’è
+			 // ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½~ï¿½bï¿½gï¿½ï¿½ï¿½Iï¿½tï¿½Éİ’ï¿½
             conn.setAutoCommit(false);
 			rst = stmt.executeQuery("SELECT staff_cd,part_cd,customer_cd,customer_nm,SUM(quantity) AS total_qty,create_dt FROM t_order GROUP BY staff_cd,part_cd,customer_cd ");
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			// get current date time with Date()
 			Date date = new Date();
+			// just add comment
 			while(rst.next()){
 				String sql = "INSERT into t_order_sum (staff_cd, part_cd, customer_cd, customer_nm, quantity, create_dt, update_dt) VALUES" + "(?,?,?,?,?,?,?)";
 				java.sql.PreparedStatement insertStr = conn.prepareStatement(sql);
@@ -38,15 +39,15 @@ public class Practice2 {
 				insertStr.setString(7, dateFormat.format(date));
 				insertStr.executeUpdate();
 				System.out.println("Insert data successfully");
-				// ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚ğƒRƒ~ƒbƒg
+				// ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½~ï¿½bï¿½g
 	            conn.commit();
-	            System.out.println("ƒRƒ~ƒbƒg‚µ‚Ü‚µ‚½...");
+	            System.out.println("ï¿½Rï¿½~ï¿½bï¿½gï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½...");
 			}
 		}catch(SQLException s){
 			// Handle errors for JDBC
 			s.printStackTrace();
 			try{
-				// ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚ğƒ[ƒ‹ƒoƒbƒN
+				// ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½oï¿½bï¿½N
 	            conn.rollback();
 	            System.out.println("The data is roll back...");
 			}catch(SQLException e1){
